@@ -6,7 +6,7 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [vue()],
   // 配置项目根路径
-  base: "/home",
+  // base: "/home",
   server: {
     host: "0.0.0.0", //指定服务器应该监听哪个 IP 地址。 如果将此设置为 0.0.0.0 将监听所有地址，包括局域网和公网地址。
     port: 8080, //配置端口号

@@ -1,11 +1,10 @@
 <template>
   <div class="sakury">
-    Dashboard
+    <dashboard></dashboard>
   </div>
 </template>
 <script setup lang='ts'>
-import { ref, reactive } from 'vue'
-
+import dashboard from '../layout/dashboard.vue';
 </script>
 
 
