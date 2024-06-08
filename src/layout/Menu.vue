@@ -1,13 +1,26 @@
 <template>
-  <el-menu default-active="/dashboard" class="el-menu-vertical-demo" :collapse="isCollapse" unique-opened router
-    @open="handleOpen" @close="handleClose" background-color="#304156">
+  <MenuLogo></MenuLogo>
+  <el-menu :default-active="activeIndex" class="el-menu-vertical-demo" :collapse="isCollapse" unique-opened router
+    background-color="#304156">
     <MenuItem :menuList="menuList">
     </MenuItem>
   </el-menu>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import MenuItem from './MenuItem.vue';
+import MenuLogo from './MenuLogo.vue' //logo
+import { useRoute } from 'vue-router'; //获取路由信息
+import { collapseStore } from '@/store/collapse/index';
+//引入 collapseStore
+const collStore = collapseStore()
+//获取路由信息
+const route = useRoute();
+//获取激活的菜单
+const activeIndex = computed(() => {
+  const { path } = route;
+  return path;
+})
 //菜单数据
 let menuList = reactive([
   {
@@ -184,7 +197,9 @@ let menuList = reactive([
   }
 ]);
 //折叠
-const isCollapse = ref(false)
+const isCollapse = computed(() => {
+  return collStore.getCollapse
+})
 //展开
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
@@ -195,7 +210,7 @@ const handleClose = (key: string, keyPath: string[]) => {
 }
 
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 230px;
   min-height: 400px;
